@@ -1,0 +1,39 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список покупок</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+</head>
+<body>
+<div class="table-responsive">
+    <table class="table table-striped">
+    <tbody>
+    <tr>
+        <td><b>Название</b></td>
+        <td><b>$</b></td>
+        <td><b>Сом</b></td>
+        <td><b>Количество</b></td>
+
+    </tr>
+   {% for i in cart.cart.all %}
+    <tr>
+
+        <td>{{ i }}</td>
+        <td>{{ i.product.usd }}$</td>
+        <td>{{ i.product.kgs }} Сом</td>
+        <td>{{ i.count }}</td>
+        <td><a class="btn btn-success btn-lg" href="{% url 'cart:remove' i.id %}">Удалить</a></td>
+
+
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+
+
+
+</body>
+</html>

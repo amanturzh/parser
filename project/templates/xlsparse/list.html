@@ -1,0 +1,65 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+</head>
+<body>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+    <tbody>
+    <tr>
+        <td><b>Название</b></td>
+        <td><b>$</b></td>
+        <td><b>Сом</b></td>
+    </tr>
+    {% for i in list %}
+    <tr>
+
+        <td>{{ i.title }}</td>
+        <td>{{ i.usd }}</td>
+        <td>{{ i.kgs }}</td>
+        <td>{{ i.id }}</td>
+        <td><a class="btn btn-success btn-lg" href="{% url 'cart:cart_page' i.id %}">В корзину</a></td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+<div class="current">
+            Страница {{ list.number }} из {{ list.paginator.num_pages }}.
+    <a class="btn btn-success btn-lg" href="{% url 'cart:cart_all' %}">Корзина</a>
+        </div>
+
+<div class="pagination">
+    <span class="step-links">
+
+    <ul class="pagination">
+        {% if list.has_previous %}
+            <li><a href="?page={{ list.previous_page_number }}">Предыдущая страница</a></li>
+        {% endif %}
+        {% for num in list.paginator.page_range %}
+            {% if num == list.number %}
+                <li class="active"><span class="current"> <b>{{ num }}</b></span></li>
+            {% else %}
+                <li><a href="?page={{ num }}">{{ num }}</a> </li>
+            {% endif %}
+        {% endfor %}
+
+
+        {% if list.has_next %}
+            <li><a href="?page={{ list.next_page_number }}">Следующая страница</a></li>
+        {% endif %}
+    </ul>
+
+    </span>
+</div>
+
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

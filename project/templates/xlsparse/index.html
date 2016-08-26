@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Выбор</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+</head>
+<body>
+<p>
+<a class="btn btn-success btn-lg" href="{% url 'xlsparse:list_parser' %}">Список</a>
+<a class="btn btn-success btn-lg" href="{% url 'xlsparse:upload' %}">Добавить Файл</a>
+
+
+<div class="table-responsive">
+    <table class="table table-striped">
+    <tbody>
+
+
+    {% for i in file %}
+        <tr>
+
+        <td>{{ i }}</td>
+        <td><a class="btn btn-success btn-lg" href="{% url 'xlsparse:file' i.id %}">Парсить</a></td>
+
+        </tr>
+    {% endfor %}
+
+    </tbody>
+    </table>
+</div>
+</p>
+</body>
+</html>

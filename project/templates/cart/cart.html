@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+</head>
+<body>
+<div class="table-responsive">
+    <table class="table table-striped">
+    <tbody>
+    <tr>
+        <td>{{ item.title }}</td>
+        <td><form class="form-inline" method="GET" action="{% url 'cart:add_cart' product_id %}">
+    <div class="form-group">
+        <label class="sr-only" for="number">Количество</label>
+        <input class="form-control" type="number" name="number" id="number">
+
+    </div>
+    <div class="form-group">
+        <button class="btn btn-success btn-lg">Добавить</button>
+    </div>
+        </form>
+        </td>
+    </tr>
+
+
+</tbody>
+</table>
+    <a class="btn btn-success btn-lg" href="{% url 'xlsparse:list_parser' %}">Список</a>
+</body>
+</html>
