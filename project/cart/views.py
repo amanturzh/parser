@@ -12,7 +12,7 @@ def cart(request):
 
 
 def add_cart(request, prod_id):
-    #
+    
 
     cart = request.user.cart
     product = Book.objects.get(id=prod_id)
@@ -21,14 +21,12 @@ def add_cart(request, prod_id):
         create = CartItem.objects.create(product=product, count=count)
         request.user.cart.cart.add(int(create.id))
         return redirect('cart:cart_all')
-    # return render(request, 'cart/cart_all.html', {'cart': cart})
+    
 
 def remove(request, item_id):
-    # item = item_id
     request.user.cart.cart.filter(id=item_id).delete()
     return redirect('cart:cart_all')
-    # return redirect(request.path)
-# CartItem.objects.create(product=product)
+
 
 def cart_page(request, product_id):
     product = product_id
