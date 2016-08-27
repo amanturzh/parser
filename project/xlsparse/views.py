@@ -27,7 +27,6 @@ def parser_list(request):
 
 
 def upload_file(request):
-    # if request.method == 'POST':
     file = UploadFileForm()
     form = UploadFileForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -39,7 +38,6 @@ def upload_file(request):
 
 
 def parser(file_id):
-    # is_file = File.objects.get(pk=file_id)
     rb = xlrd.open_workbook(file_id, formatting_info=True)
     sheet = rb.sheet_by_index(0)
     for i in range(1, sheet.nrows):
@@ -48,12 +46,10 @@ def parser(file_id):
         kg = price * 68
         obj = Book.objects.get_or_create(title=title, usd=price, kgs=kg)
 
-    # return redirect('xlsparse:list_parser')
 
 
 def get_parser(request, file_id):
     is_file = File.objects.get(pk=file_id)
-    # parser(is_file.xls.url)
     queue = django_rq.get_queue()
     queue.enqueue(parser, is_file.xls.url, timeout=720)
 

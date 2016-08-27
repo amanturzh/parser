@@ -7,11 +7,6 @@ from django.utils.translation import ugettext as _
 from django.db import models
 from xlsparse.models import Book
 from django.contrib.auth.models import User
-# Create your models here.
-# STATUS = (
-#     ('Оплачено', 'Оплачено'),
-#     ('Неплачено', 'Неплачено')
-# )
 
 
 class CartItem(models.Model):
@@ -27,11 +22,11 @@ class CartItem(models.Model):
         verbose_name = _("Элемент корзины")
 
 
-
 class Cart(models.Model):
     user = models.OneToOneField(User, verbose_name=_("Пользователь"), related_name='cart')
     create_date = models.DateTimeField(verbose_name=_("Дата"), default=timezone.now)
     cart = models.ManyToManyField(CartItem, verbose_name=_("Корзина"))
+
     def __unicode__(self):
         return unicode(self.user) or u''
 
