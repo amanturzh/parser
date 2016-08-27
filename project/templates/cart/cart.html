@@ -3,13 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Корзина</title>
+    <title>Добавить в корзину</title>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 </head>
 <body>
 <div class="table-responsive">
     <table class="table table-striped">
     <tbody>
+
     <tr>
         <td>{{ item.title }}</td>
         <td><form class="form-inline" method="GET" action="{% url 'cart:add_cart' product_id %}">
@@ -21,8 +22,7 @@
     <div class="form-group">
         <button class="btn btn-success btn-lg">Добавить</button>
     </div>
-        </form>
-        </td>
+        </form></td>
     </tr>
 
 

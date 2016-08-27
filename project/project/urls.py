@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('xlsparse.urls', namespace='xlsparse')),
     url(r'^', include('cart.urls', namespace='cart')),
+    url(r'^django-rq/', include('django_rq.urls')),
 ]

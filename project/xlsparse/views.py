@@ -5,7 +5,7 @@ from models import Book, File
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from forms import UploadFileForm
 import xlrd
-
+import django_rq
 
 def index(request):
     objects = Book.objects.all()
@@ -38,14 +38,23 @@ def upload_file(request):
     return render(request, 'xlsparse/form.html', {'form': form})
 
 
-def file(request, file_id):
-    file = File.objects.get(pk=file_id)
-    rb = xlrd.open_workbook(file.xls.url, formatting_info=True)
+def parser(file_id):
+    # is_file = File.objects.get(pk=file_id)
+    rb = xlrd.open_workbook(file_id, formatting_info=True)
     sheet = rb.sheet_by_index(0)
     for i in range(1, sheet.nrows):
-        ti = sheet.row_values(i)[0]
-        pr = sheet.row_values(i)[1]
-        kg = pr * 68
-        obj = Book.objects.get_or_create(title=ti, usd=pr, kgs=kg)
+        title = sheet.row_values(i)[0]
+        price = sheet.row_values(i)[1]
+        kg = price * 68
+        obj = Book.objects.get_or_create(title=title, usd=price, kgs=kg)
+
+    # return redirect('xlsparse:list_parser')
+
+
+def get_parser(request, file_id):
+    is_file = File.objects.get(pk=file_id)
+    # parser(is_file.xls.url)
+    queue = django_rq.get_queue()
+    queue.enqueue(parser, is_file.xls.url, timeout=720)
 
     return redirect('xlsparse:list_parser')
