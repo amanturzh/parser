@@ -43,8 +43,9 @@ def parser(file_id):
     for i in range(1, sheet.nrows):
         title = sheet.row_values(i)[0]
         price = sheet.row_values(i)[1]
-        kg = price * 68
-        obj = Book.objects.get_or_create(title=title, usd=price, kgs=kg)
+        if price:
+            kg = price * 68
+            obj = Book.objects.get_or_create(title=title, usd=price, kgs=kg)
 
 
 
