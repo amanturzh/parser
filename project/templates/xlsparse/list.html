@@ -25,8 +25,9 @@
         <td>{{ i.title }}</td>
         <td>{{ i.usd }}</td>
         <td>{{ i.kgs }}</td>
+        {% if user.is_authenticated %}
         <td><a class="btn btn-success btn-lg" href="{% url 'cart:cart_page' i.id %}">В корзину</a></td>
-
+        {% endif %}
     </tr>
     {% endfor %}
     </tbody>

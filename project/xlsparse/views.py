@@ -8,7 +8,6 @@ import xlrd
 import django_rq
 
 def index(request):
-    objects = Book.objects.all()
     file = File.objects.all()
     return render(request, 'xlsparse/index.html', {'file': file})
 
