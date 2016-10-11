@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from models import Book, File
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from forms import UploadFileForm
+from rest_framework import viewsets
+from serializers import BookSerializer
 import xlrd
 import django_rq
 
@@ -54,3 +56,8 @@ def get_parser(request, file_id):
     queue.enqueue(parser, is_file.xls.url, timeout=720)
 
     return redirect('xlsparse:list_parser')
+
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer

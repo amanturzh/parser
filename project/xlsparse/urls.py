@@ -8,6 +8,4 @@ urlpatterns = [
     url(r'^upload/$', views.upload_file, name='upload'),
     url(r'^(?P<file_id>[0-9]+)/$', views.get_parser, name='parser'),
 
-
-
 ]
